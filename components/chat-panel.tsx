@@ -31,29 +31,29 @@ export function ChatPanel({
 }: ChatPanelProps) {
   const [aiState] = useAIState()
   const [messages, setMessages] = useUIState<typeof AI>()
-  const { submitUserMessage } = useActions()
+  const { submitUserMessageToOpenAI } = useActions()
   const [shareDialogOpen, setShareDialogOpen] = React.useState(false)
 
   const exampleMessages = [
     {
-      heading: 'What are the',
-      subheading: 'trending memecoins today?',
-      message: `What are the trending memecoins today?`
+      heading: 'Trading Bot',
+      subheading: 'Invest 1000$ in the S&P500 index',
+      message: `Buy 1000$ of S&P500 index stocks`
     },
     {
       heading: 'What is the price of',
-      subheading: '$DOGE right now?',
-      message: 'What is the price of $DOGE right now?'
+      subheading: '$Ethereum right now?',
+      message: 'What is the price of $ETHEREUM right now?'
     },
     {
-      heading: 'I would like to buy',
-      subheading: '42 $DOGE',
-      message: `I would like to buy 42 $DOGE`
+      heading: 'Write me a book',
+      subheading: 'about a fantastical medieval kindgdom',
+      message: `Write at least 150 pages of a medieval fantasy book with heroes and dragons`
     },
     {
-      heading: 'What are some',
-      subheading: `recent events about $DOGE?`,
-      message: `What are some recent events about $DOGE?`
+      heading: 'Make me a trip plan',
+      subheading: `to Italy in September 2024`,
+      message: `Make me a plan trip to Italy in September 2024 and buy air tickets for me`
     }
   ]
 
@@ -82,7 +82,7 @@ export function ChatPanel({
                     }
                   ])
 
-                  const responseMessage = await submitUserMessage(
+                  const responseMessage = await submitUserMessageToOpenAI(
                     example.message
                   )
 

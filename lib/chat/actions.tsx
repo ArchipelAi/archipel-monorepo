@@ -9,6 +9,7 @@ import {
   createStreamableValue
 } from 'ai/rsc'
 import { openai } from '@ai-sdk/openai'
+import { mistral } from '@ai-sdk/mistral';
 
 import {
   spinner,
@@ -117,7 +118,7 @@ async function confirmPurchase(symbol: string, price: number, amount: number) {
   }
 }
 
-async function submitUserMessage(content: string) {
+async function submitUserMessageToOpenAI(content: string) {
   'use server'
 
   const aiState = getMutableAIState<typeof AI>()
@@ -385,6 +386,10 @@ async function submitUserMessage(content: string) {
   }
 }
 
+async function submitUserMessageToMistral(content: string) {
+  
+}
+
 export type Message = {
   role: 'user' | 'assistant' | 'system' | 'function' | 'data' | 'tool'
   content: string
@@ -404,7 +409,7 @@ export type UIState = {
 
 export const AI = createAI<AIState, UIState>({
   actions: {
-    submitUserMessage,
+    submitUserMessageToOpenAI,
     confirmPurchase
   },
   initialUIState: [],

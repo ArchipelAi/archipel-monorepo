@@ -1,20 +1,18 @@
 import * as React from 'react'
 import Link from 'next/link'
 
-import { cn } from '@/lib/utils'
 import { auth } from '@/auth'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import {
-  IconGitHub,
   IconNextChat,
   IconSeparator,
-  IconVercel
 } from '@/components/ui/icons'
 import { UserMenu } from '@/components/user-menu'
 import { SidebarMobile } from './sidebar-mobile'
 import { SidebarToggle } from './sidebar-toggle'
 import { ChatHistory } from './chat-history'
 import { Session } from '@/lib/types'
+import Image from 'next/image'
 
 async function UserOrLogin() {
   const session = (await auth()) as Session
@@ -29,8 +27,9 @@ async function UserOrLogin() {
         </>
       ) : (
         <Link href="/new" rel="nofollow">
-          <IconNextChat className="size-6 mr-2 dark:hidden" inverted />
-          <IconNextChat className="hidden size-6 mr-2 dark:block" />
+          {/* <IconNextChat className="size-6 mr-2 dark:hidden" inverted />
+          <IconNextChat className="hidden size-6 mr-2 dark:block" /> */}
+          <Image src="/logo-horizontal-sm.png" width={72} height={36} alt="logo for archipel"/>
         </Link>
       )}
       <div className="flex items-center">
@@ -56,24 +55,6 @@ export function Header() {
         </React.Suspense>
       </div>
       <div className="flex items-center justify-end space-x-2">
-        <a
-          target="_blank"
-          href="https://github.com/vercel/nextjs-ai-chatbot/"
-          rel="noopener noreferrer"
-          className={cn(buttonVariants({ variant: 'outline' }))}
-        >
-          <IconGitHub />
-          <span className="hidden ml-2 md:flex">GitHub</span>
-        </a>
-        <a
-          href="https://vercel.com/templates/Next.js/nextjs-ai-chatbot"
-          target="_blank"
-          className={cn(buttonVariants())}
-        >
-          <IconVercel className="mr-2" />
-          <span className="hidden sm:block">Deploy to Vercel</span>
-          <span className="sm:hidden">Deploy</span>
-        </a>
       </div>
     </header>
   )

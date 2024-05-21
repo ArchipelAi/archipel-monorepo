@@ -8,29 +8,20 @@ export function EmptyScreen() {
   return (
     <div className="mx-auto max-w-2xl px-4">
       <div className="flex flex-col gap-2 rounded-lg border bg-background p-8">
-        <h1 className="text-lg font-semibold">
-          Welcome to Next.js AI Chatbot!
-        </h1>
+        <h1 className="text-lg font-semibold">Archipel AI Chat</h1>
         <p className="leading-normal text-muted-foreground">
-          This is an open source AI chatbot app template built with{' '}
-          <ExternalLink href="https://nextjs.org">Next.js</ExternalLink>, the{' '}
-          <ExternalLink href="https://sdk.vercel.ai">
-            Vercel AI SDK
-          </ExternalLink>
-          , and{' '}
-          <ExternalLink href="https://vercel.com/storage/kv">
-            Vercel KV
-          </ExternalLink>
-          .
+          In this AI project, we utilize multiple AI language models like
+          ChatGPT, Mistral, and LLaMA to enhance performance through
+          collaboration and validation. Each model processes the same input, and
+          their outputs are synthesized to extract a consensus, ensuring higher
+          accuracy.
         </p>
         <p className="leading-normal text-muted-foreground">
-          It uses{' '}
-          <ExternalLink href="https://vercel.com/blog/ai-sdk-3-generative-ui">
-            React Server Components
-          </ExternalLink>{' '}
-          to combine text with generative UI as output of the LLM. The UI state
-          is synced through the SDK so the model is aware of your interactions
-          as they happen.
+          This consensus is validated against technical and scientific
+          benchmarks by an AI & Validator Network and then stored on a
+          blockchain, serving as a transparent and secure long-term memory. The
+          blockchain ensures the traceability of data, which can be referenced
+          for future validations.
         </p>
       </div>
     </div>
