@@ -9,6 +9,7 @@ import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import { StreamableValue } from 'ai/rsc'
 import { useStreamableText } from '@/lib/hooks/use-streamable-text'
+import Image from 'next/image'
 
 // Different types of message bubbles.
 
@@ -27,17 +28,35 @@ export function UserMessage({ children }: { children: React.ReactNode }) {
 
 export function BotMessage({
   content,
-  className
+  className,
+  agent = 'openai'
 }: {
   content: string | StreamableValue<string>
   className?: string
+  agent?: 'openai' | 'mistral'
 }) {
   const text = useStreamableText(content)
+
+  const getIconComponent = (agent: string) => {
+    if (agent === 'mistral') {
+      return (
+        <Image
+          src="/mistral-logo-xl.png"
+          width={24}
+          height={24}
+          alt="mistral logo"
+        />
+      )
+    }
+    return (
+      <IconOpenAI />
+    )
+  }
 
   return (
     <div className={cn('group relative flex items-start md:-ml-12', className)}>
       <div className="flex size-[24px] shrink-0 select-none items-center justify-center rounded-md border bg-primary text-primary-foreground shadow-sm">
-        <IconOpenAI />
+        {getIconComponent(agent)}
       </div>
       <div className="ml-4 flex-1 space-y-2 overflow-hidden px-1">
         <MemoizedReactMarkdown

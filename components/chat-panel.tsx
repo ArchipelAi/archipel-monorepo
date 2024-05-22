@@ -31,7 +31,7 @@ export function ChatPanel({
 }: ChatPanelProps) {
   const [aiState] = useAIState()
   const [messages, setMessages] = useUIState<typeof AI>()
-  const { submitUserMessageToOpenAI } = useActions()
+  const { submitUserMessageToOpenAI, submitUserMessageToMistral } = useActions()
   const [shareDialogOpen, setShareDialogOpen] = React.useState(false)
 
   const exampleMessages = [
@@ -82,13 +82,18 @@ export function ChatPanel({
                     }
                   ])
 
-                  const responseMessage = await submitUserMessageToOpenAI(
+                  const mistralResponseMessage = await submitUserMessageToMistral(
+                    example.message
+                  )
+
+                  const openAiResponseMessage = await submitUserMessageToOpenAI(
                     example.message
                   )
 
                   setMessages(currentMessages => [
                     ...currentMessages,
-                    responseMessage
+                    mistralResponseMessage,
+                    openAiResponseMessage,
                   ])
                 }}
               >

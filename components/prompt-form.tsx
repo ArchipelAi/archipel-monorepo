@@ -28,7 +28,7 @@ export function PromptForm({
   const router = useRouter()
   const { formRef, onKeyDown } = useEnterSubmit()
   const inputRef = React.useRef<HTMLTextAreaElement>(null)
-  const { submitUserMessageToOpenAI } = useActions()
+  const { submitUserMessageToMistral, submitUserMessageToOpenAI } = useActions()
   const [_, setMessages] = useUIState<typeof AI>()
 
   React.useEffect(() => {
@@ -62,8 +62,9 @@ export function PromptForm({
         ])
 
         // Submit and get response message
-        const responseMessage = await submitUserMessageToOpenAI(value)
-        setMessages(currentMessages => [...currentMessages, responseMessage])
+        const mistralResponseMessage = await submitUserMessageToMistral(value)
+        const openAiResponseMessage = await submitUserMessageToOpenAI(value)
+        setMessages(currentMessages => [...currentMessages, mistralResponseMessage, openAiResponseMessage])
       }}
     >
       <div className="relative flex max-h-60 w-full grow flex-col overflow-hidden bg-background px-8 sm:rounded-md sm:border sm:px-12">
