@@ -6,11 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/deliton/archipel-nextjs.git"
   },
-  "workspaces": ["packages/*", "scripts/*"],
+  "workspaces": [
+    "packages/*",
+    "scripts/*",
+    "server/*"
+  ],
   "keywords": [
     "archipel",
     "ai",
@@ -22,5 +27,5 @@
     "url": "https://github.com/deliton/archipel-nextjs/issues"
   },
   "homepage": "https://github.com/deliton/archipel-nextjs#readme",
-  "packageManager": "^yarn@1.22"
+  "packageManager": "^yarn@1.22.19"
 }

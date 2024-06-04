@@ -1,0 +1,15 @@
+{
+  "index": "Introduction",
+  "another": "Another Page",
+  "advanced": "Advanced (A Folder)",
+  "about": {
+    "title": "About",
+    "type": "page"
+  },
+  "chat": {
+    "title": "Chat ↗",
+    "type": "page",
+    "href": "https://chat.archipel.ai",
+    "newWindow": true
+  }
+}
