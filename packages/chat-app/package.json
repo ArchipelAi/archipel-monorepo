@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "archipel-chat-app",
+  "name": "@archipel/chat-app",
   "version": "0.0.1",
   "scripts": {
     "dev": "next dev",
