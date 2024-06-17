@@ -1,5 +1,5 @@
 {
-  "name": "archipel-docs",
+  "name": "@archipel/documentation",
   "version": "0.0.1",
   "description": "Archipel Documentation for APIs and SDKs",
   "scripts": {
