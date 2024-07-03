@@ -8,6 +8,7 @@ import { ChatPromptTemplate } from '@langchain/core/prompts';
 import { JsonOutputToolsParser } from '@langchain/core/output_parsers/openai_tools';
 import { END, START, StateGraph } from '@langchain/langgraph';
 import type { RunnableConfig } from '@langchain/core/runnables';
+import { ChatGroq } from '@langchain/groq';
 
 interface PlanExecuteState {
   input: string;
@@ -57,9 +58,11 @@ async function executeStep(
   config?: RunnableConfig,
 ): Promise<Partial<PlanExecuteState>> {
   const task = state.plan[0];
+
   const input = {
     messages: ['user', task],
   };
+
   const { messages } = await agentExecutor.invoke(input, config);
 
   return {
@@ -140,22 +143,31 @@ const responseTool = {
   },
 };
 
+const groq = new ChatGroq({
+  model: 'mixtral-8x7b-32768',
+}).withStructuredOutput(planFunction);
+
 const model = new ChatOpenAI({
   model: 'gpt-4o',
 }).withStructuredOutput(planFunction);
 
-const planner = plannerPrompt.pipe(model);
+const planner = plannerPrompt.pipe(groq);
 
 const tools = [new TavilySearchResults({ maxResults: 3 })];
 
 const agentExecutor = createReactAgent({
-  llm: new ChatOpenAI({ model: 'gpt-4o' }),
+  llm: new ChatGroq({ model: 'mixtral-8x7b-32768' }),
   tools: tools,
 });
 
 const parser = new JsonOutputToolsParser();
 const replanner = replannerPrompt
-  .pipe(new ChatOpenAI({ model: 'gpt-4o' }).bindTools([planTool, responseTool]))
+  .pipe(
+    new ChatGroq({ model: 'mixtral-8x7b-32768' }).bindTools([
+      planTool,
+      responseTool,
+    ]),
+  )
   .pipe(parser);
 
 const workflow = new StateGraph<PlanExecuteState>({
@@ -191,4 +203,18 @@ export const main = async (message: string) => {
   )) {
     console.log(event);
   }
+  return 'ok';
 };
+
+// {
+//   input: 'what is the hometown of the 2024 Australian open winner?',
+//   plan: [
+//     {step: 'Identify the winner of the 2024 Australian Open.', subStep: [{step: "", substep: []}]},
+//     'Research the hometown of the identified winner. The hometown should be as specific as possible e.g., city or town name.',
+//     'Verify the accuracy of the hometown information from at least two reliable sources to ensure correctness.'
+//   ],
+//   pastSteps: [
+//   {step: 'Identify the winner of the 2024 Australian Open.', answer: "", subStep: [] }
+//   ]
+//   response: null
+// }

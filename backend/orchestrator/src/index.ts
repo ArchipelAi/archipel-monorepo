@@ -2,60 +2,48 @@ import fastify from 'fastify';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUI from '@fastify/swagger-ui';
 import { z } from 'zod';
-import { main } from './langchain';
+
+import plugin from './plugins/message';
 
 import {
   jsonSchemaTransform,
-  createJsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
   type ZodTypeProvider,
 } from 'fastify-type-provider-zod';
+import path from 'path';
 
-const app = fastify();
+const app = fastify().withTypeProvider<ZodTypeProvider>();
 app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
 app.register(fastifySwagger, {
   openapi: {
+    openapi: '3.0.0',
     info: {
-      title: 'SampleApi',
-      description: 'Sample backend service',
-      version: '1.0.0',
+      title: 'ArchipelOrchestrator',
+      description: 'API Endpoints for interacting with the orchestrator',
+      version: '0.0.1',
     },
     servers: [],
   },
   transform: jsonSchemaTransform,
-  // You can also create transform with custom skiplist of endpoints that should not be included in the specification:
-  //
-  // transform: createJsonSchemaTransform({
-  //   skipList: [ '/documentation/static/*' ]
-  // })
 });
 
 app.register(fastifySwaggerUI, {
   routePrefix: '/documentation',
+  uiConfig: {
+    docExpansion: 'full',
+    deepLinking: false,
+  },
+  baseDir: true ? undefined : path.resolve('static'),
 });
 
-const LOGIN_SCHEMA = z.object({
-  username: z.string().max(32).describe('Some description for username'),
-  password: z.string().max(32),
-});
-
-app.after(() => {
-  app.withTypeProvider<ZodTypeProvider>().route({
-    method: 'POST',
-    url: '/login',
-    schema: { body: LOGIN_SCHEMA },
-    handler: async (req, res) => {
-      await main('what is the hometown of the 2024 Australian open winner?');
-      res.send('ok');
-    },
-  });
-});
+app.register(plugin);
 
 async function run() {
   await app.ready();
+  app.swagger();
 
   await app.listen({
     port: 4949,
@@ -63,5 +51,12 @@ async function run() {
 
   console.log(`Documentation running at http://localhost:4949/documentation`);
 }
+
+['SIGINT', 'SIGTERM'].forEach((signal) => {
+  process.on(signal, async () => {
+    await app.close();
+    process.exit(0);
+  });
+});
 
 run();
