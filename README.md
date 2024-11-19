@@ -10,8 +10,9 @@ $ git clone https://github.com/ArchipelAi/archipel-monorepo.git
 ```bash
 $ cd archipel-monorepo
 ```
-3. Install [poetry](https://python-poetry.org/docs/#installing-with-the-official-installer)
-4. Install project dependencies
+3. Set the python interpreter to ./.venv/bin/python
+4. Install [poetry](https://python-poetry.org/docs/#installing-with-the-official-installer)
+5. Install project dependencies
 ```
 $ poetry install
 ```
