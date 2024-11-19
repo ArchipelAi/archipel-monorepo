@@ -34,5 +34,5 @@ $ poetry run main
 
 Please cite this repo as follows:
 ```
-Beckenbauer, L.; Grosser, M.; Moreira, D. Jr.; Haverland, T. (2024). Orchestrator Multi-Agent App (v 0.01).
+Beckenbauer, L.; Grosser, M.; Moreira, D. Jr.; Haverland, T. (2024). Orchestrator Multi-Agent App (Version 0.0.1).
 ```
