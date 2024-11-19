@@ -2,7 +2,7 @@
 name = "base-workflow"
 version = "0.1.0"
 description = ""
-authors = ["Mel Grosser <grosser.mel@live.de>"]
+authors = ["Lukas Beckenbauer <lukas.beckenbauer[at]tum.de>", "Mel Grosser <grosser.mel[at]live.de>"]
 readme = "README.md"
 
 [tool.poetry.scripts]
