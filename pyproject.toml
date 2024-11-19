@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "base-workflow"
+version = "0.1.0"
+description = ""
+authors = ["Mel Grosser <grosser.mel@live.de>"]
+readme = "README.md"
+
+[tool.poetry.scripts]
+draw_graph = "base_workflow.draw_graph:main"
+main = "base_workflow.main:main"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+langgraph = "^0.2.48"
+langsmith = "^0.1.143"
+langchain-core = "^0.3.18"
+langchain = "^0.3.7"
+langchain-openai = "^0.2.8"
+langchain-experimental = "^0.3.3"
+langchain-community = "^0.3.7"
+
+[tool.poetry.plugins.dotenv]
+ignore = "false"
+location = ".env"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
