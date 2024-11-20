@@ -7,5 +7,5 @@ from langgraph.errors import NodeInterrupt
 def ask_user(
 	question: Annotated[str, 'The question to ask to the user.'],
 ):
-	"""Use this to sk the human user a question."""
+	"""Use this to ask the human user a question."""
 	raise NodeInterrupt(f'ask user question: {question}')
