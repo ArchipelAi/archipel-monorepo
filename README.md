@@ -1,4 +1,4 @@
-# Archipel-Monorepo
+# Orchestrator Multi-Agent App (v0.0.1)
 This orchestrator is some wild multi agent stuff... Oo!
 
 ## How to install the project
