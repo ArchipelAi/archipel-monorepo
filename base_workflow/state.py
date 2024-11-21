@@ -8,6 +8,7 @@ class AgentState(TypedDict):
     messages: Annotated[list[AnyMessage], add_messages]
     current_step: Optional[int]
     total_steps: Optional[int]
+    user_task: Optional[str]
 
 class PlannerState:
     def __init__(self):
